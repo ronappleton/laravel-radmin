@@ -41,7 +41,8 @@ class ModuleServiceProvider extends ServiceProvider
 
     public function boot(Dispatcher $events, Router $router)
     {
-        $router->middleware('name', 'RonAppleton\Radmin\Middleware\MiddlewareClass');
+        $router->middleware('role', \Spatie\Permission\Middlewares\RoleMiddleware::class);
+        $router->middleware('radmin', \RonAppleton\Radmin\Http\Middleware\RadminLoginRedirect::class);
 
         $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
