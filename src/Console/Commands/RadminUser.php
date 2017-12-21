@@ -37,7 +37,11 @@ class RadminUser extends Command
      */
     public function handle()
     {
-        $userModel = radmin('userModel');
+        $userModel = radmin('models.user', 'App\User');
+        radmin()->set();
+
+        $this->info($userModel);
+
 
         if($this->hasArgument('help'))
         {
