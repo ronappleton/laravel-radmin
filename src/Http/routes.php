@@ -1,9 +1,16 @@
 <?php
 
-Route::group(['prefix' => 'admin', 'middleware' => ['web', 'radmin', 'role:superadmin', 'role:admin']], function () {
-    Route::get('/', function () {
-        return view('radmin::dashboard');
+Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
+
+    Route::middleware(['radmin', 'role:superadmin', 'role:admin'])->group(function () {
+
+        Route::get('/', function () {
+            return view('radmin::dashboard');
+        });
+
+
     });
+
 
     // Authentication Routes...
     Route::get('login', [

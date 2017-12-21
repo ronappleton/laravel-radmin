@@ -4,8 +4,10 @@ namespace RonAppleton\Radmin;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Routing\Router;
 use RonAppleton\MenuBuilder\Traits\AddsMenu;
+use RonAppleton\Radmin\Http\Middleware\RadminAthenticate;
+use Spatie\Permission\Middlewares\RoleMiddleware;
+use Illuminate\Routing\Router;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -39,10 +41,10 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app = $app;
     }
 
-    public function boot(Dispatcher $events, Router $router)
+    public function boot(Dispatcher $events)
     {
-        $router->middleware('role', \Spatie\Permission\Middlewares\RoleMiddleware::class);
-        $router->middleware('radmin', \RonAppleton\Radmin\Http\Middleware\RadminLoginRedirect::class);
+        app('router')->aliasMiddleware('role', RoleMiddleware::class);
+        app('router')->aliasMiddleware('radmin', RadminAthenticate::class);
 
         $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
