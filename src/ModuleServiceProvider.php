@@ -4,6 +4,7 @@ namespace RonAppleton\Radmin;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Routing\Router;
 use RonAppleton\MenuBuilder\Traits\AddsMenu;
 
 class ModuleServiceProvider extends ServiceProvider
@@ -38,8 +39,10 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app = $app;
     }
 
-    public function boot(Dispatcher $events)
+    public function boot(Dispatcher $events, Router $router)
     {
+        $router->middleware('name', 'RonAppleton\Radmin\Middleware\MiddlewareClass');
+
         $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->loadViews();

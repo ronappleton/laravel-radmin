@@ -1,9 +1,8 @@
 @section('navbar')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="nav-link">
-            <button class="fa fa-fw fa-lock" type="button" data-toggle="collapse" data-target="#sidebar"
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar"
                     aria-controls="sidebar" aria-expanded="true" aria-label="Toggle sidebar">
-                <span class="navbar-toggler-icon"></span>
             </button>
         </a>
         <a class="navbar-brand" href="#">{{ env('APP_NAME', 'MenuBuilder') }}</a>
@@ -14,15 +13,15 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                @include('menu-builder::layouts.navbar.menus.left')
+                @include('radmin::layouts.navbar.menus.left')
             </ul>
             <ul class="navbar mx-auto">
-                @include('menu-builder::layouts.admin.navbar.menus.middle')
+                @include('radmin::layouts.navbar.menus.middle')
             </ul>
             <ul class="navbar-nav ml-auto">
-                @include('menu-builder::layouts.admin.navbar.menus.right')
+                @include('radmin::layouts.navbar.menus.right')
                 @guest
-                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.login') }}">Login</a></li>
 
                 @else
                     @gravatar

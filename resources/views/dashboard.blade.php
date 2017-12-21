@@ -1,5 +1,8 @@
-@extends('radmin::layouts.admin.master)
+@extends('radmin::layouts.master')
 
+@guest
+    @else
 @section('content')
     Dashboard
-    @endsection
+@endsection
+@endguest

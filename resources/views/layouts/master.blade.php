@@ -20,17 +20,12 @@
 
 @include('radmin::layouts.navbar.navbar')
 
-@guest
-    @include('radmin::auth.login')
-@endguest
-
-
 <!-- NAVBAR -->
 @yield('navbar')
 
 @guest
     <div class="d-flex p-2 justify-content-center">
-        @yield('login')
+        @yield('content')
     </div>
 
 @else

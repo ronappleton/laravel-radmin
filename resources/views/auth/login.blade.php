@@ -1,4 +1,6 @@
-@section('login')
+@extends('radmin::layouts.master')
+
+@section('content')
     <div class="card">
         <div class="card-header">
             <i class="fa fa-lock"></i> Login
@@ -43,11 +45,11 @@
                         Login
                     </button>
 
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                    <a class="btn btn-link" href="{{ route('admin.password.request') }}">
                         Forgot Your Password?
                     </a>
                 </div>
-            </form>
+        </form>
         </div>
     </div>
 @endsection
