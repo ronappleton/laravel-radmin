@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use RonAppleton\MenuBuilder\Traits\AddsMenu;
 use RonAppleton\Radmin\Http\Middleware\RadminAthenticate;
 use Spatie\Permission\Middlewares\RoleMiddleware;
-use Illuminate\Routing\Router;
+use RonAppleton\Radmin\Exceptions\RadminHandler;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -55,7 +55,15 @@ class ModuleServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->extendExceptionHandler();
+    }
 
+    private function extendExceptionHandler()
+    {
+        $this->app->singleton(
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            RadminHandler::class
+        );
     }
 
     private function loadViews()
