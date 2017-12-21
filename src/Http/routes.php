@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'web'], function () {
 
     Route::middleware(['radmin', 'role:superadmin', 'role:admin'])->group(function () {
 
