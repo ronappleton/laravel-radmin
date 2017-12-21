@@ -5,6 +5,7 @@ namespace RonAppleton\Radmin;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use RonAppleton\MenuBuilder\Traits\AddsMenu;
+use RonAppleton\Radmin\Console\Commands\RadminUser;
 use RonAppleton\Radmin\Http\Middleware\RadminAthenticate;
 use Spatie\Permission\Middlewares\RoleMiddleware;
 use RonAppleton\Radmin\Exceptions\RadminHandler;
@@ -43,6 +44,12 @@ class ModuleServiceProvider extends ServiceProvider
 
     public function boot(Dispatcher $events)
     {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                RadminUser::class,
+            ]);
+        }
+
         app('router')->aliasMiddleware('role', RoleMiddleware::class);
         app('router')->aliasMiddleware('radmin', RadminAthenticate::class);
 
