@@ -40,11 +40,42 @@ class RadminUser extends Command
         $userModel = $this->getInstance('models.user');
         $roleModel = $this->getInstance('models.role');
 
-        if ($this->hasArgument('help')) {
-            $this->showHelper();
+        $this->checkSuperAdminRole($roleModel);
+
+        $this->checkForSuperUser($userModel, $roleModel);
+
+        $this->showMainMenu();
+    }
+
+    private function checkSuperAdminRole($model)
+    {
+        $roles = $model->where('name', 'SuperAdmin')->get();
+
+        if(count($roles) == 0)
+        {
+            $this->warn('There is no SuperAdmin role defined');
+            $this->info('Creating now..');
+
+            $model::create([
+               'name' => 'SuperAdmin',
+            ]);
+        }
+    }
+
+    private function checkForSuperUser($userModel, $roleModel)
+    {
+        $users = $userModel->all();
+
+        foreach($users as $user)
+        {
+            if($user->hasRole('SuperAdmin'))
+            {
+                $this->info('SuperAdmin Exists.');
+                return true;
+            }
         }
 
-        $this->showMainmenu();
+        $this->warn('No SuperAdmin exists.');
     }
 
     public function superUser()
@@ -52,38 +83,93 @@ class RadminUser extends Command
 
     }
 
-    public function showHelper()
-    {
-
-    }
-
     public function showMainMenu()
     {
         $options = [
-            'Show SuperUsers',
-            'Create SuperUser',
-            'Remove SuperUser',
-            'Alter SuperUser',
-            'Disable 2Factor Auth',
-            'Help',
             'Exit',
+            'Show SuperAdmins',
+            'Create SuperAdmin',
+            'Remove SuperAdmin',
+            'Alter SuperAdmin',
+            'Disable 2Factor Auth',
         ];
-
-        $index = 0;
-
-        for($i = 0; $i <= count($options); $i++)
-        {
-            $this->info("[{$i}] {$options[$i]}");
-        }
 
         $choice = null;
 
-        while(!is_numeric($choice) && !$choice > 0 && !$choice <= count($choice))
+        while(!is_numeric($choice) && !$choice > 0 && !$choice <= count($choice) || is_null($choice))
         {
-            $this->choice('Please choose an option: ', $options);
+            $choice = $this->choice('Please choose an option: ', $options);
         }
 
+        if ($choice == 'Exit')
+        {
+            die();
+        }
+        else {
+            $choice = str_replace(' ', '', $choice);
+            $method = "option{$choice}";
+            $this->$method();
+        }
 
+        $this->proceed();
+    }
+
+    private function proceed()
+    {
+        $options = [
+            'Exit',
+            'Continue',
+        ];
+
+        $choice = $this->choice('Exit or Continue: ', $options);
+
+        if ($choice == 'Continue')
+        {
+            system('clear');
+            $this->showMainMenu();
+        }
+        else {
+            die();
+        }
+    }
+
+    private function optionShowSuperAdmins()
+    {
+        $userModel = $this->getInstance('models.user');
+
+        $users = $userModel->hasRole('SuperAdmin');
+
+        if(empty($users))
+        {
+            $this->info('No Super Admins Exist');
+            $this->proceed();
+        }
+        else {
+            foreach($users as $user)
+            {
+                $this->info("{$user->name} {$user->email}");
+            }
+        }
+    }
+
+    private function optionCreateSuperAdmin()
+    {
+        var_dump('Create Super Admin Called');
+    }
+
+    private function optionRemoveSuperAdmin()
+    {
+        var_dump('Remove Super Admin Called');
+    }
+
+    private function optionAlterSuperAdmin()
+    {
+        var_dump('Alter Super Admin Called');
+    }
+
+    private function optionDisable2FactorAuth()
+    {
+        var_dump('Disable 2 Factor Auth Called');
     }
 
     private function getUserModel($userModel)
@@ -113,4 +199,6 @@ class RadminUser extends Command
 
         return new $class;
     }
+
+
 }
