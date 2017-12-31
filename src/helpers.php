@@ -2,29 +2,14 @@
 
 if(!function_exists('radmin'))
 {
-    function radmin($name = null, $default)
+    function radmin($name = null, $default = null)
     {
-        if(is_array($name))
+        if(empty($name) && empty($default))
         {
-            $this->set($name);
+            return false;
         }
 
         return config("radmin.{$name}") ?: $default;
-
-        function set(array $settings)
-        {
-            foreach($settings as $setting => $value)
-            {
-                if(!str_contains($setting, 'radmin'))
-                {
-                    $key = "radmin.{$setting}";
-                    $settings[$key] = $value;
-                    unset($settings[$setting]);
-                }
-            }
-
-            return config($settings);
-        }
     }
 }
 

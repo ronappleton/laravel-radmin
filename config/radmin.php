@@ -1,9 +1,11 @@
 <?php
 
 return [
-    "models" => [
-        'user' => 'RonAppleton\Radmin\User',
-        'role' => '',
-        'permission' => '',
+    "classes" => [
+        "models" => [
+            'user' => 'App\User',
+            'role' => 'Spatie\Permission\Models\Role',
+            'permission' => 'Spatie\Permission\Models\Permission',
+        ],
     ],
 ];

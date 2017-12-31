@@ -1,0 +1,55 @@
+{
+    "name": "ronappleton/radmin",
+    "description": "Admin interface for laravel, pull and play",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ron Appleton",
+            "email": "ron.appleton@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "laravel/framework": "5.5.*",
+        "ronappleton/menubuilder": "dev-master",
+        "ronappleton/radmin-permissions": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "RonAppleton\\Radmin\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RonAppleton\\Radmin\\ModuleServiceProvider"
+            ],
+            "aliases": {
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../menubuilder",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "../permissions",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
+}
