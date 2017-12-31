@@ -39,14 +39,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../menubuilder",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "../permissions",
+            "url": "../radmin",
             "options": {
                 "symlink": true
             }

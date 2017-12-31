@@ -66,11 +66,10 @@ class RadminUser extends Command
             'Alter SuperUser',
             'Disable 2Factor Auth',
             'Help',
+            'Exit',
         ];
 
-        $index = 1;
-
-        $this->info("[0] Exit");
+        $index = 0;
 
         for($i = 0; $i <= count($options); $i++)
         {
