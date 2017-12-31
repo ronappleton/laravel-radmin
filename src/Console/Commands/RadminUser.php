@@ -40,9 +40,6 @@ class RadminUser extends Command
         $userModel = $this->getInstance('models.user');
         $roleModel = $this->getInstance('models.role');
 
-        dd($userModel);
-
-
         if ($this->hasArgument('help')) {
             $this->showHelper();
         }
@@ -71,7 +68,9 @@ class RadminUser extends Command
             'Help',
         ];
 
-        $index = 0;
+        $index = 1;
+
+        $this->info("[0] Exit");
 
         for($i = 0; $i <= count($options); $i++)
         {
@@ -82,7 +81,7 @@ class RadminUser extends Command
 
         while(!is_numeric($choice) && !$choice > 0 && !$choice <= count($choice))
         {
-            $this->choice('Please choose an option: ');
+            $this->choice('Please choose an option: ', $options);
         }
 
 
