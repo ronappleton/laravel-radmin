@@ -173,7 +173,7 @@ class RadminUser extends Command
 
         $userEmail = explode('-', $choice)[1];
 
-        $user = $users->where('email', $userEmail);
+        $user = $users->where('email', $userEmail)->first();
 
         if($user->assignRole('SuperAdmin'))
         {
