@@ -154,12 +154,50 @@ class RadminUser extends Command
 
     private function optionCreateSuperAdmin()
     {
-        var_dump('Create Super Admin Called');
+        $userModel = $this->getInstance('models.user');
+
+        $users = $userModel->all();
+
+        $userNames = [];
+
+        foreach($users as $user)
+        {
+            $userNames = "{$user->name}";
+        }
+
+        $choice = $this->choice('Choose User to make SuperAdmin: ', $userNames);
+
+        var_dump($choice);
     }
 
     private function optionRemoveSuperAdmin()
     {
-        var_dump('Remove Super Admin Called');
+        $userModel = $this->getInstance('models.user');
+
+        $users = $userModel->hasRole('SuperAdmin');
+
+        if(empty($users))
+        {
+            $this->info('No Super Admins Exist');
+            $this->proceed();
+        }
+        else {
+            $supers = [];
+
+            foreach($users as $user)
+            {
+                $supers[$user->id] = "{$user->name} {$user->email}";
+            }
+        }
+
+        $choice = $this->choice('Choose super user to remove: ', $supers);
+
+        $confirm = $this->confirm('Are you sure?');
+
+        if($confirm)
+        {
+            var_dump('User Chosen');
+        }
     }
 
     private function optionAlterSuperAdmin()
