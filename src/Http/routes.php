@@ -2,7 +2,7 @@
 
 Route::group(['prefix' => 'admin', 'middleware' => 'web'], function () {
 
-    Route::middleware(['radmin', 'role:superadmin', 'role:admin'])->group(function () {
+    Route::middleware(['radmin', 'role:SuperAdmin', 'role:Admin'])->group(function () {
 
         Route::get('/', function () {
             return view('radmin::dashboard');
