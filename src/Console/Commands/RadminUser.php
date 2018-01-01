@@ -162,12 +162,16 @@ class RadminUser extends Command
 
         foreach($users as $user)
         {
-            $userNames[] = "{$user->name}";
+            $userNames[] = "{$user->name}-{$user->email}";
         }
 
         $choice = $this->choice('Choose User to make SuperAdmin: ', $userNames);
 
-        var_dump($choice);
+        $userEmail = explode('-', $choice)[1];
+
+        $user = $users->where('email', $userEmail);
+
+        var_dump($user);
     }
 
     private function optionRemoveSuperAdmin()
