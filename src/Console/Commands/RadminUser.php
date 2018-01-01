@@ -162,7 +162,7 @@ class RadminUser extends Command
 
         foreach($users as $user)
         {
-            $userNames = "{$user->name}";
+            $userNames[] = "{$user->name}";
         }
 
         $choice = $this->choice('Choose User to make SuperAdmin: ', $userNames);
