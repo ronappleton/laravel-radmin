@@ -162,7 +162,11 @@ class RadminUser extends Command
 
         foreach($users as $user)
         {
-            $userNames[] = "{$user->name}-{$user->email}";
+            if(!$user->hasRole('SuperAdmin'))
+            {
+                $userNames[] = "{$user->name}-{$user->email}";
+            }
+
         }
 
         $choice = $this->choice('Choose User to make SuperAdmin: ', $userNames);
@@ -171,7 +175,13 @@ class RadminUser extends Command
 
         $user = $users->where('email', $userEmail);
 
-        var_dump($user);
+        if($user->assignRole('SuperAdmin'))
+        {
+            $this->info('User has been made SuperAdmin');
+        }
+        else {
+            $this->warn('Was unable to make user SuperAdmin');
+        }
     }
 
     private function optionRemoveSuperAdmin()
