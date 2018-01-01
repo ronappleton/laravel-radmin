@@ -137,7 +137,7 @@ class RadminUser extends Command
     {
         $userModel = $this->getInstance('models.user');
 
-        $users = $userModel->role('SuperAdmin');
+        $users = $userModel->role('SuperAdmin')->get();
 
         if(empty($users))
         {
