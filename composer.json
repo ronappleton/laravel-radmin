@@ -37,12 +37,5 @@
         "optimize-autoloader": true
     },
     "repositories": [
-        {
-            "type": "path",
-            "url": "../permissions",
-            "options": {
-                "symlink": true
-            }
-        }
     ]
 }
