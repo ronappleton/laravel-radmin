@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ env('APP_NAME', 'RADMIN') }}</title>
+    <title>@yield('title')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -19,6 +19,8 @@
     <!-- wysihtml editor -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-wysiwyg/0.3.3/bootstrap3-wysihtml5.min.css">
+    @stack('head_styles')
+    @stack('head_scripts')
 </head>
 <body>
 
@@ -38,6 +40,7 @@
         <div class="row">
             @include('radmin::layouts.sidebar.left')
             <div class="col">
+                @yield('content_header')
                 @yield('content')
             </div>
         </div>
@@ -66,5 +69,6 @@
         $(".textarea").wysihtml5();
     });
 </script>
+@stack('scripts')
 </body>
 </html>
