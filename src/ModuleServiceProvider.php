@@ -57,6 +57,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->loadViews();
         $this->publishConfig();
+        $this->publishAssets();
         $this->menuListener($events);
     }
 
@@ -93,6 +94,13 @@ class ModuleServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->mergeConfigFrom($configPath, 'radmin');
+    }
+
+    private function publishAssets()
+    {
+        $this->publishes([
+            $this->packagePath('/public/vendor') => public_path('/vendor'),
+        ]);
     }
 
     private function packagePath($path)

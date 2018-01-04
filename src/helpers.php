@@ -14,7 +14,7 @@ if(!function_exists('radmin'))
 }
 
 if (!function_exists('radminTextArea')) {
-    function radminTextAreal($name, $value = null, $placeholder = null, $title = null, $strap = null, $collapse = false, $remove = false)
+    function radminTextArea($name, $value = null, $placeholder = null, $title = null, $strap = null, $collapse = false, $remove = false)
     {
         if(!isset($model))
         {
