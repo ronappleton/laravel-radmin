@@ -40,7 +40,9 @@
             @include('radmin::layouts.sidebar.left')
             <div class="col">
                 @yield('content_header')
-                @yield('content')
+                <div class="col-12">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
@@ -49,7 +51,7 @@
 
 
 <footer>
-    @include ('footer')
+    @include('radmin::layouts.footer.footer')
 </footer>
 
 <!-- Jquery 3.2.1 -->
